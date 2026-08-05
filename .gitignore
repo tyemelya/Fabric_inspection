@@ -1,0 +1,16 @@
+.venv/
+data/
+models/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# macOS files
+.DS_Store
+
+# Package/build artifacts
+*.egg-info/
+dist/
+build/
