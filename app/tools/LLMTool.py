@@ -1,8 +1,13 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
-from LLMTool import RoutingDecision
 import json
 import re
+from dataclasses import dataclass
+
+@dataclass
+class RoutingDecision:
+    use_retrieval: bool
+    reason: str
 
 def parse_json_response(response: str) -> dict:
     # Remove ```json and ```

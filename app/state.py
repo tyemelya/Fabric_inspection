@@ -2,6 +2,7 @@ from typing import TypedDict, NotRequired
 from app.tools.vision import VisionResult
 from app.tools.evidence import EvidenceResult
 from app.tools.similarity import RetrievedCase
+from app.tools.LLMTool import RoutingDecision
 
 class InspectionState(TypedDict):
     image_path: str
@@ -9,5 +10,5 @@ class InspectionState(TypedDict):
     vision_result: NotRequired[VisionResult]
     retrieved_cases: NotRequired[list[RetrievedCase]]
     evidence: NotRequired[EvidenceResult]   
-    route: NotRequired[str]
+    routing: NotRequired[RoutingDecision]
     report: NotRequired[str]

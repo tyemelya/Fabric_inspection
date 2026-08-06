@@ -6,12 +6,6 @@ from app.tools.similarity import SimilarityTool
 from app.tools.metadata import MetadataTool
 from app.tools.evidence import EvidenceTool
 from app.tools.LLMTool import LLMTool
-from dataclasses import dataclass
-
-@dataclass
-class RoutingDecision:
-    use_retrieval: bool
-    reason: str
 
 class FabricInspectionGraph:
     def __init__(
@@ -87,25 +81,54 @@ class FabricInspectionGraph:
         }
 
     def report_node(self, state):
+        retrieved = ""
+
+        if "retrieved_cases" in state:
+            retrieved = "\n".join(
+                f"""
+                Case {i}
+                - Defect: {case.metadata.defect_class}
+                - Severity: {case.metadata.severity}
+                - Distance: {case.distance:.3f}
+                - Description: {case.metadata.description}
+                """
+            for i, case in enumerate(state["retrieved_cases"], 1)
+            )
+
+        evidence = state.get("evidence")
+
         prompt = f"""
-        You are a textile inspection assistant.
+        You are an expert textile quality inspection assistant.
 
-        Image analysis result:
-        - Defect: {state["vision_result"].prediction}
-        - Vision confidence: {state["vision_result"].confidence}
+        Use ONLY the information provided below.
 
-        Evidence:
-        {state.get("evidence", "No retrieval evidence available")}
+        Vision Analysis
+        - Predicted defect: {state["vision_result"].prediction}
+        - Vision confidence: {state["vision_result"].confidence:.1%}
 
-        Retrieved examples:
-        {state.get("retrieved_cases", [])}
+        Retrieval Evidence
+        Evidence score: {evidence.evidence_score if evidence else "N/A"}
+        Confidence level: {evidence.confidence_level if evidence else "N/A"}
+        Supporting cases: {evidence.supporting_cases if evidence else "N/A"}/{evidence.total_cases if evidence else "N/A"}
 
-        User question:
+        Retrieved Similar Cases
+        {retrieved if retrieved else "No similar cases retrieved."}
+
+        User Question
         {state["user_question"]}
 
-        Answer clearly and briefly.
-        """
+        Write a professional inspection report.
 
+        If retrieval evidence is available:
+        - Explain whether the retrieved cases support the prediction.
+        - Mention the evidence score.
+        - Mention the vision model confidence.
+        - Summarize the retrieved cases.
+        - Mention any disagreement if it exists.
+
+        Keep the report concise (about 150–250 words).
+        """
+        
         response = self.llm_tool.generate(prompt)
 
         return {
@@ -128,23 +151,16 @@ class FabricInspectionGraph:
         graph.add_node("evidence", self.evidence_node)
         graph.add_node("report", self.report_node)
         
-        graph.add_edge(START, "router")
+        graph.add_edge(START, "vision")
+        graph.add_edge("vision", "router")
+
         graph.add_conditional_edges(
             "router",
             self._route,
             {
-                "vision_only": "vision",
-                "retrieval": "vision",
-            },
-        )
-        
-        graph.add_conditional_edges(
-            "vision",
-            self._route,
-            {
                 "vision_only": "report",
                 "retrieval": "similarity",
-            },  
+            },
         )
         
         graph.add_edge("similarity", "evidence")
