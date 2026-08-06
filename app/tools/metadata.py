@@ -3,6 +3,7 @@ import sqlite3
 
 @dataclass
 class Metadata:
+    id: int
     image_path: str
     defect_class: str
     severity: str
@@ -17,7 +18,7 @@ class MetadataTool:
             cur = connection.cursor()
             cur.execute(
                  """
-                     SELECT image_path, defect_class, severity, description 
+                    SELECT id, image_path, defect_class, severity, description 
                     FROM fabric_defects
                     WHERE id = ?
                     LIMIT 1
@@ -29,8 +30,9 @@ class MetadataTool:
                 raise ValueError(f"No metadata found for id {idx}")
         
         return Metadata(
-            image_path = res[0],
-            defect_class = res[1],
-            severity = res[2],
-            description = res[3]
+            id = res[0],
+            image_path = res[1],
+            defect_class = res[2],
+            severity = res[3],
+            description = res[4]
         )

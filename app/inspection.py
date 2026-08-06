@@ -1,5 +1,5 @@
 from app.graph import FabricInspectionGraph
-
+    
 class InspectionService:
 
     def __init__(self):
@@ -9,12 +9,8 @@ class InspectionService:
             annoy_index_info="data/annoy_index_info.json",
         )
 
-    def inspect(
-        self,
-        image_path: str,
-        user_question: str
-    ):
+    def inspect(self, image_path: str, user_question: str):
         return self.graph.run(
             image_path=image_path,
-            user_question=user_question,
-        )
+            user_question=user_question
+    )
