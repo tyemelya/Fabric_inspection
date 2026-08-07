@@ -39,14 +39,15 @@ class SimilarityTool:
             List of similar cases sorted by distance.
         """
     
-        if image_embedding.shape[0] != self.feature_dim:    
-            raise ValueError(
-                f"Expected embedding dimension {self.feature_dim}, got {len(image_embedding)}"
-                )
         if image_embedding.ndim != 1:
             raise ValueError(
                 "Expected a single embedding vector"
             )
+
+        if image_embedding.shape[0] != self.feature_dim:    
+            raise ValueError(
+                f"Expected embedding dimension {self.feature_dim}, got {len(image_embedding)}"
+                )
         
         k = min(k, self.index.get_n_items())
             
@@ -66,5 +67,4 @@ class SimilarityTool:
                 metadata=metadata
                 )
             )
-        return similar_list
-
+        return similar_list    

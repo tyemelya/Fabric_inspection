@@ -84,7 +84,8 @@ class LLMTool:
 
         try:
             decision = parse_json_response(self.generate(prompt))
-        except Exception as e:
-            raise ValueError(f"Invalid routing decision: {e}")
-
+        except (ValueError, json.JSONDecodeError) as e:
+            raise ValueError(
+                f"Invalid routing decision: {e}"
+            )
         return RoutingDecision(**decision)

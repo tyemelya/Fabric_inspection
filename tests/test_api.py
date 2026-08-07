@@ -54,7 +54,7 @@ async def test_inspect(mock_inspect, client):
     with open("tests/data/sample.jpg", "rb") as f:
         response = await client.post(
             "/inspect",
-            files={"uploaded_image": ("sample.jpg", f, "image/jpeg")},
+            files={"uploaded_image": ("test.jpg", f, "image/jpeg")},
             data={"question": "What defect?"},
         )
 
