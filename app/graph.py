@@ -15,14 +15,18 @@ class FabricInspectionGraph:
         annoy_index_info,
         device=None
     ):
-        self.device = (
-            device 
-            if device is not None
-            else ("cuda" if torch.cuda.is_available() else "cpu")
-        )
-
+        if device is not None:
+            self.device = device
+        elif torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
+            self.device = torch.device("mps")
+        else:
+            self.device = torch.device("cpu")
+    
         self.llm_tool = LLMTool(
-            model_name="Qwen/Qwen2.5-7B-Instruct",
+            #model_name="Qwen/Qwen2.5-7B-Instruct",
+            model_name="Qwen/Qwen2.5-1.5B-Instruct",
             device=self.device
         )
 
