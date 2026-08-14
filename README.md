@@ -50,15 +50,15 @@ fabric-inspection-agents/
 |   ├── api/
 |   |   ├── routes.py
 |   |   └── schemas.py
-|.  |
-|.  |
+|   |
+|   |
 |   ├── ml/
 |   |   ├── data.py
 |   |   ├── inference_model.py
 |   |   ├── loader.py
 |   |   └── models.py
-|.  |
-|.  |
+|   |
+|   |
 |   ├── tools/
 |   |   ├── evidence.py
 |   |   ├── LLMTool.py
@@ -66,7 +66,7 @@ fabric-inspection-agents/
 |   |   ├── similarity.py
 |   |   └── vision.py 
 │   |
-|.  |
+|   |
 |   ├── graph.py
 │   ├── inspection.py
 │   ├── main.py
@@ -107,7 +107,7 @@ fabric-inspection-agents/
 |   ├── test_llmtool.py
 |   ├── test_metadata_tool.py
 |   ├── test_similarity_tool.py
-|.  └── test_visiontool
+|   └── test_visiontool
 |   
 │
 ├── docker-compose.yml
