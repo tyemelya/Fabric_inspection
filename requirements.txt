@@ -15,8 +15,8 @@ distro==1.9.0
 dnspython==2.8.0
 email-validator==2.3.0
 executing==2.2.1
--e git+https://github.com/tyemelya/Fabric_inspection@78baeee8991e0ea24734171916b80124356eed61#egg=fabric_inspection_agents
--e git+https://github.com/tyemelya/Fabric_inspection@78baeee8991e0ea24734171916b80124356eed61#egg=fabric_inspection_copilot
+-e git+https://github.com/tyemelya/Fabric_inspection@09bdecccecd40a388d337cbccf20d2b58d6b71f7#egg=fabric_inspection_agents
+-e git+https://github.com/tyemelya/Fabric_inspection@09bdecccecd40a388d337cbccf20d2b58d6b71f7#egg=fabric_inspection_copilot
 fastapi==0.141.1
 fastapi-cli==0.0.32
 fastapi-cloud-cli==0.23.0
