@@ -1,4 +1,4 @@
-##Confidence-aware Multi-Agent Fabric Inspection System
+## Confidence-aware Multi-Agent Fabric Inspection System
 
 Features:
 
@@ -38,6 +38,7 @@ prompt: """
                     "description": ""
                 }}
           """
+The scripts with model training and choosing can be found in [fabric models repository](https://github.com/tyemelya/Fabric_inspection_models).
 
 ### 2. Project structure
 
