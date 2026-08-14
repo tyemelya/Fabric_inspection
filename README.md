@@ -11,14 +11,14 @@ The system takes a fabric image and a natural-language question as input and pro
 - A natural-language inspection report
 
 ### Key Features
-- DINOv2-based defect recognition — identifies fabric defects using a fine-tuned vision model.
-- Agentic orchestration with LangGraph — dynamically determines whether the inspection requires only vision analysis or additional retrieval and evidence.
-- Visual similarity search with ANNOY — retrieves visually similar historical fabric samples using DINOv2 embeddings.
-- Manufacturing context — historical cases contain defect type, severity, and textual descriptions.
-- Confidence-aware reasoning — combines vision confidence with retrieved evidence to provide a more informative inspection result.
-- FastAPI backend — exposes the inspection pipeline through a REST API.
-- Streamlit frontend — provides an interactive interface for image inspection and visualization of similar cases.
-- Automated testing — includes unit tests for tools, graph routing, and API endpoints.
+- DINOv2-based defect recognition – identifies fabric defects using a fine-tuned vision model.
+- Agentic orchestration with LangGraph – dynamically determines whether the inspection requires only vision analysis or additional retrieval and evidence.
+- Visual similarity search with ANNOY – retrieves visually similar historical fabric samples using DINOv2 embeddings.
+- Manufacturing context – historical cases contain defect type, severity, and textual descriptions.
+- Confidence-aware reasoning – combines vision confidence with retrieved evidence to provide a more informative inspection result.
+- FastAPI backend – exposes the inspection pipeline through a REST API.
+- Streamlit frontend – provides an interactive interface for image inspection and visualization of similar cases.
+- Automated testing – includes unit tests for tools, graph routing, and API endpoints.
 
 ### 1. Data
 
@@ -75,59 +75,8 @@ The scripts with model training and choosing can be found in [fabric models repo
 
 The workflow always starts with visual analysis. The Router Agent then determines whether the user's question requires historical retrieval. Retrieval and evidence evaluation are performed only when needed.
 
-```text
-                    ┌──────────────────────┐
-                    │   User Image +       │
-                    │   Natural Language    │
-                    │      Question         │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    Vision Tool       │
-                    │      DINOv2          │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │    Router Agent      │
-                    │   LLM-based routing  │
-                    └──────────┬───────────┘
-                               │
-                  ┌────────────┴────────────┐
-                  │                         │
-             No retrieval              Retrieval needed
-                  │                         │
-                  │                         ▼
-                  │               ┌──────────────────┐
-                  │               │ Similarity Tool  │
-                  │               │      ANNOY        │
-                  │               └────────┬─────────┘
-                  │                        │
-                  │                        ▼
-                  │               ┌──────────────────┐
-                  │               │  Evidence Tool   │
-                  │               │ Compare retrieved│
-                  │               │ cases + prediction│
-                  │               └────────┬─────────┘
-                  │                        │
-                  └────────────┬───────────┘
-                               ▼
-                    ┌──────────────────────┐
-                    │    Report Agent      │
-                    │   LLM-based report   │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Inspection Result  │
-                    │ prediction            │
-                    │ confidence             │
-                    │ evidence               │
-                    │ similar cases          │
-                    │ report                 │
-                    └──────────────────────┘
-```
+![Workflow](images/workflow.png)
+
                     
 ### 3. Project structure
 
@@ -175,7 +124,6 @@ The agents interact with specialized tools:
 - **MetadataTool** — retrieves historical case metadata from SQLite.
 - **LLMTool** — provides LLM inference for routing and report generation.
 
-![LangGraph](images/inspection_graph.png)
 
 ### 5. Inspection Flow
 1. Image analysis
