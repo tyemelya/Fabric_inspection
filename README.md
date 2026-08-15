@@ -20,6 +20,8 @@ The system takes a fabric image and a natural-language question as input and pro
 - Streamlit frontend – provides an interactive interface for image inspection and visualization of similar cases.
 - Automated testing – includes unit tests for tools, graph routing, and API endpoints.
 
+[![Fabric inspection demo](images/fabric_inspection_demo.mov)
+
 ### 1. Data
 
 The chosen vision model was trained and evaluated on the [Fabric Defect Dataset](https://www.kaggle.com/datasets/raiyansayeed/fabric-defect-dataset) available on Kaggle.
