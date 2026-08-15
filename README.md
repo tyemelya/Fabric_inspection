@@ -22,7 +22,7 @@ The system takes a fabric image and a natural-language question as input and pro
 
 ## Demo
 
-[▶️ Watch the demo](./images/fabric_inspection_dem.mp4)
+[▶️ Watch the demo](./images/fabric_inspection_demo.mp4)
 
 
 ### 1. Data
