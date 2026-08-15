@@ -22,8 +22,8 @@ The system takes a fabric image and a natural-language question as input and pro
 
 ## Demo
 
-<video src="./images/fabric_inspection_demo.mp4" controls width="800"></video>
 
+[▶️ Watch the demo](https://github.com/tyemelya/Fabric_inspection/blob/main/images/fabric_inspection_demo.mov)
 
 ### 1. Data
 
