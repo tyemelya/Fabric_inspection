@@ -20,12 +20,10 @@ The system takes a fabric image and a natural-language question as input and pro
 - Streamlit frontend – provides an interactive interface for image inspection and visualization of similar cases.
 - Automated testing – includes unit tests for tools, graph routing, and API endpoints.
 
+## Demo
 
-<p align="center">
-  <video src="images/fabric_inspection_demo.mov" width="500px"></video>
-</p>
+[▶️ Watch the demo](./images/fabric_inspection_dem.mp4)
 
-<video src="images/fabric_inspection_demo.mov" width="320" height="240" controls></video>
 
 ### 1. Data
 
