@@ -19,11 +19,15 @@ def parse_json_response(response: str) -> dict:
 
 class LLMTool:
     def __init__(self, model_name, device=None):
-        self.device = (
-            device 
-            if device is not None
-            else ("cuda" if torch.cuda.is_available() else "cpu")
-        )
+        if device is not None:
+            self.device = device
+        elif torch.cuda.is_available():
+            self.device = torch.device("cuda")
+        elif torch.backends.mps.is_available():
+            self.device = torch.device("mps")
+        else:
+            self.device = torch.device("cpu")
+
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
         self.model = AutoModelForCausalLM.from_pretrained(

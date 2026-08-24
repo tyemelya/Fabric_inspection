@@ -26,7 +26,13 @@ def build_annoy_index(vtool, res, n_trees=25):
     return index, feature_dim
 
 def main():
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
+
     connection = sqlite3.connect("data/fabric.db")
     cur = connection.cursor()
     cur.execute(
